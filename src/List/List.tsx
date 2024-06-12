@@ -1,0 +1,5 @@
+import "./List.css";
+
+export function List() {
+  return <div className="list"></div>;
+}
