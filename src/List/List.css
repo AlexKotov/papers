@@ -1,5 +1,7 @@
 .list {
   width: 80vw;
+  min-width: 500px;
   height: 88vh;
+  min-height: 500px;
   background-color: gainsboro;
 }
