@@ -1,30 +1,25 @@
 import { useState } from "react";
 import { storage } from "./../helpers";
 import "./List.css";
-
-type ListItemType = {
-  id: string;
-  value: string;
-};
+import { ListItem } from "./ListItem";
+import { ListItemType } from "./../types";
 
 type ListType = {
-  colsAmount: number;
-  rowsAmount: number;
   items: ListItemType[];
 };
 
 const listDefaultValue = {
-  colsAmount: 50,
-  rowsAmount: 6,
   items: [
     {
       id: "0",
       value: "",
+      rowsAmount: 10,
     },
   ],
 };
 
 /**
+ * TODO написать Сохранение
  * TODO почистить manifest.json
  * TODO подумать над экспортом текстов в файлы
  */
@@ -32,25 +27,15 @@ export function List() {
   if (!storage.get("list")) {
     storage.set("list", listDefaultValue);
   }
+
   const [list] = useState<ListType>(storage.get("list"));
 
   return (
     <div className="list">
       {list
-        ? list.items.map((note: ListItemType, noteIndex: number) => {
-            return (
-              <section key={`${noteIndex}.${note.id}`}>
-                <label htmlFor={`${note.id}`}></label>
-                <textarea
-                  id={`${note.id}`}
-                  rows={list.rowsAmount}
-                  cols={list.colsAmount}
-                  value={note.value}
-                  onChange={() => undefined}
-                />
-              </section>
-            );
-          })
+        ? list.items.map((note: ListItemType, noteIndex: number) => (
+            <ListItem key={`${noteIndex}.${note.id}`} note={note} />
+          ))
         : null}
     </div>
   );
