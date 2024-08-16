@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { storage } from "./../helpers";
 import "./List.css";
 
@@ -12,12 +13,27 @@ type ListType = {
   items: ListItemType[];
 };
 
+const listDefaultValue = {
+  colsAmount: 50,
+  rowsAmount: 6,
+  items: [
+    {
+      id: "0",
+      value: "",
+    },
+  ],
+};
+
 /**
- * TODO продумать, как будет заполняться новая карточка, где она будет отображаться визуально
+ * TODO почистить manifest.json
  * TODO подумать над экспортом текстов в файлы
  */
 export function List() {
   const list: ListType = storage.get("list");
+
+  useEffect(() => {
+    if (!list) storage.set("list", listDefaultValue);
+  }, [list]);
 
   return (
     <div className="list">
