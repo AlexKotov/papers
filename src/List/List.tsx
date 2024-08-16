@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState } from "react";
 import { storage } from "./../helpers";
 import "./List.css";
 
@@ -29,11 +29,10 @@ const listDefaultValue = {
  * TODO подумать над экспортом текстов в файлы
  */
 export function List() {
-  const list: ListType = storage.get("list");
-
-  useEffect(() => {
-    if (!list) storage.set("list", listDefaultValue);
-  }, [list]);
+  if (!storage.get("list")) {
+    storage.set("list", listDefaultValue);
+  }
+  const [list] = useState<ListType>(storage.get("list"));
 
   return (
     <div className="list">
