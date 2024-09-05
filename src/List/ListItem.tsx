@@ -1,8 +1,10 @@
 import { ChangeEvent, useState } from "react";
-import { ListItemType } from "./../types";
+import { storage } from "./../helpers";
+import { ListType, ListItemType } from "./../types";
 
 type Props = {
   note: ListItemType;
+  setList: React.Dispatch<React.SetStateAction<ListType>>;
 };
 
 export function ListItem(props: Props) {
@@ -13,6 +15,19 @@ export function ListItem(props: Props) {
       ...note,
       value: e.target.value,
     });
+  };
+
+  const handleSave = () => {
+    const list = storage.get("list");
+
+    list.items.forEach((listItem: ListItemType) => {
+      if (listItem.id === note.id) {
+        listItem.value = note.value;
+      }
+    });
+
+    storage.set("list", list);
+    props.setList(list);
   };
 
   const handleCancel = () => {
@@ -28,7 +43,9 @@ export function ListItem(props: Props) {
         value={note.value}
         onChange={(e) => handleChange(e)}
       />
-      <button type="button">Save</button>
+      <button type="button" onClick={handleSave}>
+        Save
+      </button>
       <button type="button" onClick={handleCancel}>
         Cancel
       </button>

@@ -2,11 +2,7 @@ import { useState } from "react";
 import { storage } from "./../helpers";
 import "./List.css";
 import { ListItem } from "./ListItem";
-import { ListItemType } from "./../types";
-
-type ListType = {
-  items: ListItemType[];
-};
+import { ListType, ListItemType } from "./../types";
 
 const listDefaultValue = {
   items: [
@@ -19,7 +15,6 @@ const listDefaultValue = {
 };
 
 /**
- * TODO написать Сохранение
  * TODO почистить manifest.json
  * TODO подумать над экспортом текстов в файлы
  */
@@ -28,13 +23,17 @@ export function List() {
     storage.set("list", listDefaultValue);
   }
 
-  const [list] = useState<ListType>(storage.get("list"));
+  const [list, setList] = useState<ListType>(storage.get("list"));
 
   return (
     <div className="list">
       {list
         ? list.items.map((note: ListItemType, noteIndex: number) => (
-            <ListItem key={`${noteIndex}.${note.id}`} note={note} />
+            <ListItem
+              key={`${noteIndex}.${note.id}`}
+              note={note}
+              setList={setList}
+            />
           ))
         : null}
     </div>
