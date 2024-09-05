@@ -15,6 +15,7 @@ const listDefaultValue = {
 };
 
 /**
+ * TODO change note id after saving and develop blank note
  * TODO почистить manifest.json
  * TODO подумать над экспортом текстов в файлы
  */
