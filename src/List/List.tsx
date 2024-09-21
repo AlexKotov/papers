@@ -1,30 +1,15 @@
-import { useState } from "react";
-import { storage } from "./../helpers";
+import { useAtom } from "jotai";
 import "./List.css";
 import { ListItem } from "./ListItem";
 import { ListType, ListItemType } from "./../types";
-
-const listDefaultValue = {
-  items: [
-    {
-      id: "0",
-      value: "",
-      rowsAmount: 10,
-    },
-  ],
-};
+import { listAtom } from "./../jotai";
 
 /**
- * TODO добавить кнопку Добавить
  * TODO почистить manifest.json
  * TODO подумать над экспортом текстов в файлы
  */
 export function List() {
-  if (!storage.get("list")) {
-    storage.set("list", listDefaultValue);
-  }
-
-  const [list, setList] = useState<ListType>(storage.get("list"));
+  const [list, setList] = useAtom<ListType>(listAtom);
 
   return (
     <div className="list">

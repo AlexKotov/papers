@@ -1,11 +1,16 @@
+.list {
+  display: flex;
+}
+
+.list section:first-child {
+  margin-left: 0;
+}
+
 .list section {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  margin-left: 20px;
   width: 120px;
   height: 260px;
-}
-
-.list section:first-child {
-  margin-top: -8px;
 }

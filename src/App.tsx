@@ -8,7 +8,7 @@ function App() {
     <div className="App">
       <main className="main">
         <Header />
-        <hr style={{ width: "100%", margin: "28px 0" }} />
+        <hr style={{ width: "100%", margin: "28px 0 18px 0" }} />
         <List />
       </main>
     </div>
