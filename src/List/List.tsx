@@ -5,6 +5,7 @@ import { ListType, ListItemType } from "./../types";
 import { listAtom } from "./../jotai";
 
 /**
+ * TODO написать функционал удаления записки
  * TODO почистить manifest.json
  * TODO подумать над экспортом текстов в файлы
  */
