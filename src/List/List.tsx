@@ -5,7 +5,6 @@ import { ListType, ListItemType } from "./../types";
 import { listAtom } from "./../jotai";
 
 /**
- * TODO обновить вёрстку списка так, чтобы записки не вылезали за пределы контента
  * TODO почистить manifest.json
  * TODO подумать над экспортом текстов в файлы
  */
