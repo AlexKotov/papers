@@ -1,4 +1,5 @@
 import { useSetAtom } from "jotai";
+import { v4 as uuidv4 } from "uuid";
 import { storage } from "./helpers";
 import { defaultNote } from "./constants";
 import { listAtom } from "./jotai";
@@ -12,7 +13,7 @@ export function Header() {
     const list = storage.get("list");
     const note = { ...defaultNote };
 
-    note.id = list.items.length + "";
+    note.id = uuidv4();
     list.items.push(note);
 
     setList(list);

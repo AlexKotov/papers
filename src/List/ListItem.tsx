@@ -18,7 +18,7 @@ export function ListItem(props: Props) {
   };
 
   const handleSave = () => {
-    const list = storage.get("list");
+    const list: ListType = storage.get("list");
 
     list.items.forEach((listItem: ListItemType) => {
       if (listItem.id === note.id) {
@@ -32,6 +32,18 @@ export function ListItem(props: Props) {
 
   const handleCancel = () => {
     setNote(props.note);
+  };
+
+  const handleRemove = () => {
+    const list: ListType = storage.get("list");
+
+    list.items.splice(
+      list.items.findIndex((e) => e.id === note.id),
+      1
+    );
+
+    storage.set("list", list);
+    props.setList(list);
   };
 
   return (
@@ -48,6 +60,9 @@ export function ListItem(props: Props) {
       </button>
       <button type="button" onClick={handleCancel}>
         Cancel
+      </button>
+      <button type="button" onClick={handleRemove}>
+        Remove
       </button>
     </section>
   );
