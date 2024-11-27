@@ -3,6 +3,9 @@ import { List } from "./List";
 
 import "./App.css";
 
+/**
+ * TODO подумать над экспортом текстов в файлы
+ */
 function App() {
   return (
     <div className="App">
