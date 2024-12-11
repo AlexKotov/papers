@@ -1,1 +1,1 @@
-export type { ListType, ListItemType } from './list';
+export type { TabsType, TabType, ListType, ListItemType } from "./list";
