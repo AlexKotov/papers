@@ -1,17 +1,17 @@
 import { useAtom } from "jotai";
 import "./List.css";
 import { ListItem } from "./ListItem";
-import { ListType, ListItemType } from "./../types";
-import { listAtom } from "./../jotai";
+import { ListItemType, TabsType } from "./../types";
+import { tabsAtom } from "./../jotai";
 
 export function List() {
-  const [list, setList] = useAtom<ListType>(listAtom);
+  const [tabs, setTabs] = useAtom<TabsType>(tabsAtom);
 
   return (
     <div className="list">
-      {list
-        ? list.items.map((note: ListItemType) => (
-            <ListItem key={`${note.id}`} note={note} setList={setList} />
+      {tabs[0].list
+        ? tabs[0].list.items.map((note: ListItemType) => (
+            <ListItem key={`${note.id}`} note={note} setTabs={setTabs} />
           ))
         : null}
     </div>

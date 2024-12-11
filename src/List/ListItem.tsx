@@ -1,10 +1,10 @@
-import { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { storage } from "./../helpers";
-import { ListType, ListItemType } from "./../types";
+import { ListItemType, TabsType } from "./../types";
 
 type Props = {
   note: ListItemType;
-  setList: React.Dispatch<React.SetStateAction<ListType>>;
+  setTabs: React.Dispatch<React.SetStateAction<TabsType>>;
 };
 
 export function ListItem(props: Props) {
@@ -18,16 +18,16 @@ export function ListItem(props: Props) {
   };
 
   const handleSave = () => {
-    const list: ListType = storage.get("list");
+    const tabs: TabsType = storage.get("tabs");
 
-    list.items.forEach((listItem: ListItemType) => {
+    tabs[0].list.items.forEach((listItem: ListItemType) => {
       if (listItem.id === note.id) {
         listItem.value = note.value;
       }
     });
 
-    storage.set("list", list);
-    props.setList(list);
+    storage.set("tabs", tabs);
+    props.setTabs(tabs);
   };
 
   const handleCancel = () => {
@@ -35,15 +35,15 @@ export function ListItem(props: Props) {
   };
 
   const handleRemove = () => {
-    const list: ListType = storage.get("list");
+    const tabs: TabsType = storage.get("tabs");
 
-    list.items.splice(
-      list.items.findIndex((e) => e.id === note.id),
+    tabs[0].list.items.splice(
+      tabs[0].list.items.findIndex((e) => e.id === note.id),
       1
     );
 
-    storage.set("list", list);
-    props.setList(list);
+    storage.set("tabs", tabs);
+    props.setTabs(tabs);
   };
 
   return (

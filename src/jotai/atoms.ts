@@ -15,14 +15,8 @@ const tabsDefaultValue: TabsType = [
   },
 ];
 
-if (!storage.get("list")) {
-  storage.set("list", listDefaultValue);
-}
-
 if (!storage.get("tabs")) {
   storage.set("tabs", tabsDefaultValue);
 }
-
-export const listAtom = atom(storage.get("list"));
 
 export const tabsAtom = atom(storage.get("tabs"));

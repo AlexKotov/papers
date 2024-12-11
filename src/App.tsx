@@ -4,6 +4,7 @@ import { List } from "./List";
 import "./App.css";
 
 /**
+ * TODO написать добавление / удаление группы
  * TODO подумать над экспортом текстов в файлы
  */
 function App() {

@@ -1,1 +1,1 @@
-export { listAtom, tabsAtom } from "./atoms";
+export { tabsAtom } from "./atoms";

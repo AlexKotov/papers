@@ -2,22 +2,22 @@ import { useSetAtom } from "jotai";
 import { v4 as uuidv4 } from "uuid";
 import { storage } from "./helpers";
 import { defaultNote } from "./constants";
-import { listAtom } from "./jotai";
+import { tabsAtom } from "./jotai";
 
 import "./Header.css";
 
 export function Header() {
-  const setList = useSetAtom(listAtom);
+  const setTabs = useSetAtom(tabsAtom);
 
   const handleAddNote = () => {
-    const list = storage.get("list");
+    const tabs = storage.get("tabs");
     const note = { ...defaultNote };
 
     note.id = uuidv4();
-    list.items.push(note);
+    tabs[0].list.items.push(note);
 
-    setList(list);
-    storage.set("list", list);
+    setTabs(tabs);
+    storage.set("tabs", tabs);
   };
 
   const handleAddGroup = () => {};
