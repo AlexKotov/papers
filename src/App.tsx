@@ -11,7 +11,7 @@ function App() {
     <div className="App">
       <main className="main">
         <Header />
-        <hr style={{ margin: "28px 0 18px 0" }} />
+        <hr style={{ margin: "6px 0 18px 0" }} />
         <List />
       </main>
     </div>

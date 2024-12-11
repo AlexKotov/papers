@@ -2,8 +2,9 @@ import { atom } from "jotai";
 
 import { storage } from "./../helpers";
 import { defaultNote } from "./../constants";
+import { ListType } from "../types";
 
-const listDefaultValue = {
+const listDefaultValue: ListType = {
   items: [defaultNote],
 };
 

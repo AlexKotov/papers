@@ -9,7 +9,7 @@ import "./Header.css";
 export function Header() {
   const setList = useSetAtom(listAtom);
 
-  const handleAdd = () => {
+  const handleAddNote = () => {
     const list = storage.get("list");
     const note = { ...defaultNote };
 
@@ -20,11 +20,21 @@ export function Header() {
     storage.set("list", list);
   };
 
+  const handleAddGroup = () => {};
+
   return (
     <header className="header">
-      <button type="button" onClick={handleAdd}>
-        Add note
-      </button>
+      <div className="buttons">
+        <button type="button" onClick={handleAddNote}>
+          Add note
+        </button>
+        <button type="button" onClick={handleAddGroup}>
+          Add group
+        </button>
+      </div>
+      <div className="tabs">
+        <div className="tab">Default</div>
+      </div>
     </header>
   );
 }
