@@ -21,6 +21,7 @@ export function List({ currentTab, setCurrentTab }: ListProps) {
               key={`${currentTab}.${note.id}`}
               note={note}
               setTabs={setTabs}
+              currentTab={currentTab}
             />
           ))
         : null}
