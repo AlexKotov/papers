@@ -1,22 +1,10 @@
 import { atom } from "jotai";
 
 import { storage } from "./../helpers";
-import { defaultNote } from "./../constants";
-import { ListType, TabsType } from "../types";
-
-const listDefaultValue: ListType = {
-  items: [defaultNote],
-};
-
-const tabsDefaultValue: TabsType = [
-  {
-    name: "Default",
-    list: listDefaultValue,
-  },
-];
+import { defaultTabs } from "./../constants";
 
 if (!storage.get("tabs")) {
-  storage.set("tabs", tabsDefaultValue);
+  storage.set("tabs", defaultTabs);
 }
 
 export const tabsAtom = atom(storage.get("tabs"));

@@ -1,26 +1,44 @@
-import { useSetAtom } from "jotai";
+import { type Dispatch, type SetStateAction } from "react";
+import { useSetAtom, useAtom } from "jotai";
 import { v4 as uuidv4 } from "uuid";
 import { storage } from "./helpers";
-import { defaultNote } from "./constants";
+import { defaultNote, createDefaultTab } from "./constants";
 import { tabsAtom } from "./jotai";
+import { type TabsType, type TabType } from "./types";
 
 import "./Header.css";
 
-export function Header() {
+interface HeaderProps {
+  currentTab: number;
+  setCurrentTab: Dispatch<SetStateAction<number>>;
+}
+
+export function Header({ currentTab, setCurrentTab }: HeaderProps) {
   const setTabs = useSetAtom(tabsAtom);
 
   const handleAddNote = () => {
-    const tabs = storage.get("tabs");
+    const tabs: TabsType = storage.get("tabs");
     const note = { ...defaultNote };
 
     note.id = uuidv4();
-    tabs[0].list.items.push(note);
+    tabs[currentTab].list.items.push(note);
 
     setTabs(tabs);
     storage.set("tabs", tabs);
   };
 
-  const handleAddGroup = () => {};
+  const handleAddGroup = () => {
+    const tabs: TabsType = storage.get("tabs");
+    const newTabs: TabsType = [
+      ...tabs,
+      { ...createDefaultTab(), id: uuidv4() },
+    ];
+    setTabs(newTabs);
+    storage.set("tabs", newTabs);
+    setCurrentTab(newTabs.length - 1);
+  };
+
+  const [tabs] = useAtom<TabsType>(tabsAtom);
 
   return (
     <header className="header">
@@ -33,7 +51,17 @@ export function Header() {
         </button>
       </div>
       <div className="tabs">
-        <div className="tab">Default</div>
+        {tabs.map((tab: TabType) => (
+          <div
+            key={tab.id}
+            className={`tab ${tab.id === tabs[currentTab].id ? "active" : ""}`}
+            onClick={() =>
+              setCurrentTab(tabs.findIndex((t) => t.id === tab.id))
+            }
+          >
+            {tab.name}
+          </div>
+        ))}
       </div>
     </header>
   );

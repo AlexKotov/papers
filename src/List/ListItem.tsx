@@ -1,10 +1,15 @@
-import React, { ChangeEvent, useState } from "react";
+import {
+  type Dispatch,
+  type SetStateAction,
+  ChangeEvent,
+  useState,
+} from "react";
 import { storage } from "./../helpers";
 import { ListItemType, TabsType } from "./../types";
 
 type Props = {
   note: ListItemType;
-  setTabs: React.Dispatch<React.SetStateAction<TabsType>>;
+  setTabs: Dispatch<SetStateAction<TabsType>>;
 };
 
 export function ListItem(props: Props) {
@@ -39,7 +44,7 @@ export function ListItem(props: Props) {
 
     tabs[0].list.items.splice(
       tabs[0].list.items.findIndex((e) => e.id === note.id),
-      1
+      1,
     );
 
     storage.set("tabs", tabs);

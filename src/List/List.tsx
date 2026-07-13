@@ -1,17 +1,27 @@
+import { type Dispatch, type SetStateAction } from "react";
 import { useAtom } from "jotai";
 import "./List.css";
 import { ListItem } from "./ListItem";
 import { ListItemType, TabsType } from "./../types";
 import { tabsAtom } from "./../jotai";
 
-export function List() {
+interface ListProps {
+  currentTab: number;
+  setCurrentTab: Dispatch<SetStateAction<number>>;
+}
+
+export function List({ currentTab, setCurrentTab }: ListProps) {
   const [tabs, setTabs] = useAtom<TabsType>(tabsAtom);
 
   return (
     <div className="list">
-      {tabs[0].list
-        ? tabs[0].list.items.map((note: ListItemType) => (
-            <ListItem key={`${note.id}`} note={note} setTabs={setTabs} />
+      {tabs[currentTab]?.list
+        ? tabs[currentTab].list.items.map((note: ListItemType) => (
+            <ListItem
+              key={`${currentTab}.${note.id}`}
+              note={note}
+              setTabs={setTabs}
+            />
           ))
         : null}
     </div>

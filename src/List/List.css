@@ -1,6 +1,5 @@
 .list {
   overflow-y: scroll;
-
   display: flex;
   flex-wrap: wrap;
 }
@@ -12,4 +11,8 @@
   margin-right: 20px;
   width: 120px;
   height: 260px;
+}
+
+.list section textarea {
+  resize: none;
 }

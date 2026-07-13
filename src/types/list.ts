@@ -11,6 +11,7 @@ export type ListItemType = {
 export type TabsType = TabType[];
 
 export type TabType = {
+  id: string;
   name: string;
   list: ListType;
 };

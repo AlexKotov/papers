@@ -2,18 +2,21 @@ import { Header } from "./Header";
 import { List } from "./List";
 
 import "./App.css";
+import { useState } from "react";
 
 /**
  * TODO написать добавление / удаление группы
  * TODO подумать над экспортом текстов в файлы
  */
 function App() {
+  const [currentTab, setCurrentTab] = useState<number>(0);
+
   return (
     <div className="App">
       <main className="main">
-        <Header />
+        <Header currentTab={currentTab} setCurrentTab={setCurrentTab} />
         <hr style={{ margin: "6px 0 18px 0" }} />
-        <List />
+        <List currentTab={currentTab} setCurrentTab={setCurrentTab} />
       </main>
     </div>
   );
