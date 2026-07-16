@@ -59,7 +59,22 @@ export function Header({ currentTab, setCurrentTab }: HeaderProps) {
               setCurrentTab(tabs.findIndex((t) => t.id === tab.id))
             }
           >
-            {tab.name}
+            <span>{tab.name}</span>
+            <span
+              className="close"
+              onClick={(e) => {
+                e.stopPropagation();
+                const newTabs = [...tabs];
+                newTabs.splice(
+                  tabs.findIndex((t) => t.id === tab.id),
+                  1,
+                );
+                setTabs(newTabs);
+                storage.set("tabs", newTabs);
+              }}
+            >
+              ×
+            </span>
           </div>
         ))}
       </div>

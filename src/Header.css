@@ -16,11 +16,20 @@
 
 .header .tabs .tab {
   background: rgb(152, 151, 151);
-  padding: 1px 6px 2px 6px;
+  padding: 1px 6px 3px 6px;
   border-radius: 4px;
   cursor: pointer;
 }
 
 .header .tabs .tab.active {
   background: rgb(255, 251, 251);
+}
+
+.header .tabs .tab .close {
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.header .tabs .tab .close:hover {
+  color: rgb(232, 91, 91);
 }
