@@ -12,12 +12,18 @@
 .header .tabs {
   display: flex;
   gap: 12px;
+  padding-bottom: 8px;
+  overflow-x: scroll;
 }
 
 .header .tabs .tab {
+  display: flex;
+  justify-content: space-between;
   background: rgb(152, 151, 151);
   padding: 1px 6px 3px 6px;
   border-radius: 4px;
+  min-width: 52px;
+  font-size: 13px;
   cursor: pointer;
 }
 
@@ -26,7 +32,6 @@
 }
 
 .header .tabs .tab .close {
-  margin-left: 5px;
   cursor: pointer;
 }
 
