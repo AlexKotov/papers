@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import App from "./App";
 
 describe("App", () => {
@@ -10,6 +10,17 @@ describe("App", () => {
     const buttonElement = screen.getByText(/Add note/i);
     expect(buttonElement).toBeInTheDocument();
 
-    expect(screen.getByRole("textbox")).toBeInTheDocument();
+    expect(screen.queryByText("JavaScript")).toBeNull();
+    // expect(screen.getByText("JavaScript")).toBeInTheDocument();
+
+    screen.debug();
+
+    fireEvent.change(screen.getByRole("textbox"), {
+      target: { value: "JavaScript" },
+    });
+
+    screen.debug();
+
+    expect(screen.getByText("JavaScript")).toBeInTheDocument();
   });
 });
