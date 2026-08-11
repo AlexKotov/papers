@@ -3,15 +3,13 @@ import { render, screen } from "@testing-library/react";
 import App from "./App";
 
 describe("App", () => {
-  it("renders App component", () => {
+  test("renders App component", () => {
     render(<App />);
-
     // screen.debug();
-  });
-});
 
-test("renders add note button", () => {
-  render(<App />);
-  const buttonElement = screen.getByText(/Add note/i);
-  expect(buttonElement).toBeInTheDocument();
+    const buttonElement = screen.getByText(/Add note/i);
+    expect(buttonElement).toBeInTheDocument();
+
+    expect(screen.getByRole("textbox")).toBeInTheDocument();
+  });
 });
