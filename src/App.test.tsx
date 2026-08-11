@@ -1,9 +1,10 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import App from "./App";
+import userEvent from "@testing-library/user-event";
 
 describe("App", () => {
-  test("renders App component", () => {
+  it("renders App component", async () => {
     render(<App />);
     // screen.debug();
 
@@ -15,9 +16,10 @@ describe("App", () => {
 
     screen.debug();
 
-    fireEvent.change(screen.getByRole("textbox"), {
-      target: { value: "JavaScript" },
-    });
+    await userEvent.type(screen.getByRole("textbox"), "JavaScript");
+    // fireEvent.change(screen.getByRole("textbox"), {
+    //   target: { value: "JavaScript" },
+    // });
 
     screen.debug();
 
