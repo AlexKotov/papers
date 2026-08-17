@@ -7,10 +7,9 @@ import { tabsAtom } from "./../jotai";
 
 interface ListProps {
   currentTab: number;
-  setCurrentTab: Dispatch<SetStateAction<number>>;
 }
 
-export function List({ currentTab, setCurrentTab }: ListProps) {
+export function List({ currentTab }: ListProps) {
   const [tabs, setTabs] = useAtom<TabsType>(tabsAtom);
 
   return (

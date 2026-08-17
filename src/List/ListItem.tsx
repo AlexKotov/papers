@@ -11,6 +11,7 @@ type Props = {
   note: ListItemType;
   setTabs: Dispatch<SetStateAction<TabsType>>;
   currentTab: number;
+  onChange?: jest.Mock<any, any>;
 };
 
 export function ListItem(props: Props) {
@@ -21,6 +22,7 @@ export function ListItem(props: Props) {
       ...note,
       value: e.target.value,
     });
+    props.onChange?.();
   };
 
   const handleSave = () => {

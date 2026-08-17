@@ -17,7 +17,7 @@ function App() {
       <main className="main">
         <Header currentTab={currentTab} setCurrentTab={setCurrentTab} />
         <hr style={{ margin: "6px 0 18px 0" }} />
-        <List currentTab={currentTab} setCurrentTab={setCurrentTab} />
+        <List currentTab={currentTab} />
       </main>
     </div>
   );
