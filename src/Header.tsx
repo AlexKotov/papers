@@ -1,4 +1,4 @@
-import { type Dispatch, type SetStateAction } from "react";
+import { type Dispatch, type SetStateAction, useRef, useState } from "react";
 import { useSetAtom, useAtom } from "jotai";
 import { v4 as uuidv4 } from "uuid";
 import { storage } from "./helpers";
@@ -15,6 +15,9 @@ interface HeaderProps {
 
 export function Header({ currentTab, setCurrentTab }: HeaderProps) {
   const setTabs = useSetAtom(tabsAtom);
+  const [editingTabId, setEditingTabId] = useState<string | null>(null);
+  const [editingName, setEditingName] = useState("");
+  const cancelRenameOnBlur = useRef(false);
 
   const handleAddNote = () => {
     const tabs: TabsType = storage.get("tabs");
@@ -40,6 +43,18 @@ export function Header({ currentTab, setCurrentTab }: HeaderProps) {
 
   const [tabs] = useAtom<TabsType>(tabsAtom);
 
+  const saveTabName = (tabId: string) => {
+    const name = editingName.trim();
+    if (name) {
+      const newTabs = tabs.map((tab) =>
+        tab.id === tabId ? { ...tab, name } : tab,
+      );
+      setTabs(newTabs);
+      storage.set("tabs", newTabs);
+    }
+    setEditingTabId(null);
+  };
+
   return (
     <header className="header">
       <div className="buttons">
@@ -59,26 +74,77 @@ export function Header({ currentTab, setCurrentTab }: HeaderProps) {
               setCurrentTab(tabs.findIndex((t) => t.id === tab.id))
             }
           >
-            <span>{tab.name}</span>
-            {tabs.length > 1 && (
-              <span
-                className="close"
-                // можно использовать filter, можно использовать toSpliced
-                onClick={(e) => {
-                  e.stopPropagation();
-                  const newTabs = [...tabs];
-                  newTabs.splice(
-                    tabs.findIndex((t) => t.id === tab.id),
-                    1,
-                  );
-                  setTabs(newTabs);
-                  storage.set("tabs", newTabs);
-                  setCurrentTab(newTabs.length - 1);
+            {editingTabId === tab.id ? (
+              <input
+                autoFocus
+                aria-label={`Rename ${tab.name}`}
+                value={editingName}
+                onChange={(e) => setEditingName(e.target.value)}
+                onBlur={() => {
+                  if (cancelRenameOnBlur.current) {
+                    cancelRenameOnBlur.current = false;
+                    return;
+                  }
+                  saveTabName(tab.id);
                 }}
-              >
-                ×
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.currentTarget.blur();
+                  } else if (e.key === "Escape") {
+                    e.preventDefault();
+                    cancelRenameOnBlur.current = true;
+                    setEditingTabId(null);
+                    e.currentTarget.blur();
+                  }
+                }}
+                onClick={(e) => e.stopPropagation()}
+              />
+            ) : (
+              <span className="name" title={tab.name}>
+                {tab.name}
               </span>
             )}
+            <div className="actions">
+              {editingTabId !== tab.id && (
+                <button
+                  type="button"
+                  className="rename"
+                  aria-label={`Rename ${tab.name}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setEditingName(tab.name);
+                    setEditingTabId(tab.id);
+                  }}
+                >
+                  ✎
+                </button>
+              )}
+              {tabs.length > 1 && (
+                <span
+                  className="close"
+                  // можно использовать filter, можно использовать toSpliced
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const removedIndex = tabs.findIndex((t) => t.id === tab.id);
+                    if (removedIndex < 0) return;
+
+                    const newTabs = tabs.filter((t) => t.id !== tab.id);
+                    const nextCurrentTab =
+                      currentTab === removedIndex
+                        ? Math.min(removedIndex, newTabs.length - 1)
+                        : currentTab > removedIndex
+                          ? currentTab - 1
+                          : currentTab;
+
+                    setTabs(newTabs);
+                    storage.set("tabs", newTabs);
+                    setCurrentTab(nextCurrentTab);
+                  }}
+                >
+                  ×
+                </span>
+              )}
+            </div>
           </div>
         ))}
       </div>

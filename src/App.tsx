@@ -5,7 +5,6 @@ import "./App.css";
 import { useState } from "react";
 
 /**
- * TODO добавить возможность переименовывать группы
  * TODO прикрутить MUI
  * TODO подумать над экспортом текстов в файлы
  */

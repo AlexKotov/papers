@@ -18,13 +18,33 @@
 
 .header .tabs .tab {
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  box-sizing: border-box;
   background: rgb(152, 151, 151);
-  padding: 1px 6px 3px 6px;
+  padding: 1px 6px;
   border-radius: 4px;
-  min-width: 52px;
+  width: 140px;
+  min-width: 60px;
+  flex: 0 0 140px;
+  height: 28px;
   font-size: 13px;
   cursor: pointer;
+}
+
+.header .tabs .tab .name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.header .tabs .tab .actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
 }
 
 .header .tabs .tab.active {
@@ -35,6 +55,19 @@
   cursor: pointer;
 }
 
-.header .tabs .tab .close:hover {
+.header .tabs .tab .rename {
+  padding: 0 2px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.header .tabs .tab input {
+  width: 100px;
+  min-width: 0;
+}
+
+.header .tabs .tab .close:hover,
+.header .tabs .tab .rename:hover {
   color: rgb(232, 91, 91);
 }
