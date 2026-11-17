@@ -4,6 +4,7 @@ import {
   ChangeEvent,
   useState,
 } from "react";
+import TextField from "@mui/material/TextField";
 import { storage } from "./../helpers";
 import { ListItemType, TabsType } from "./../types";
 
@@ -17,7 +18,9 @@ type Props = {
 export function ListItem(props: Props) {
   const [note, setNote] = useState<ListItemType>(props.note);
 
-  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     setNote({
       ...note,
       value: e.target.value,
@@ -57,11 +60,20 @@ export function ListItem(props: Props) {
   return (
     <section>
       <label htmlFor={`${note.id}`}></label>
-      <textarea
+      <TextField
         id={`${note.id}`}
+        aria-label={`Note ${note.id}`}
+        multiline
         rows={note.rowsAmount}
         value={note.value}
-        onChange={(e) => handleChange(e)}
+        onChange={handleChange}
+        size="small"
+        variant="outlined"
+        sx={{
+          "& .MuiOutlinedInput-root": { backgroundColor: "#fff" },
+          "& .MuiInputBase-input": { fontSize: "0.875rem" },
+        }}
+        className="note"
       />
       <button type="button" onClick={handleSave}>
         Save
