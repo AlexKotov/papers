@@ -4,6 +4,7 @@ import {
   ChangeEvent,
   useState,
 } from "react";
+import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { storage } from "./../helpers";
 import { ListItemType, TabsType } from "./../types";
@@ -75,15 +76,31 @@ export function ListItem(props: Props) {
         }}
         className="note"
       />
-      <button type="button" onClick={handleSave}>
+      <Button
+        type="button"
+        variant="contained"
+        size="small"
+        onClick={handleSave}
+      >
         Save
-      </button>
-      <button type="button" onClick={handleCancel}>
+      </Button>
+      <Button
+        type="button"
+        variant="text"
+        size="small"
+        onClick={handleCancel}
+      >
         Cancel
-      </button>
-      <button type="button" onClick={handleRemove}>
+      </Button>
+      <Button
+        type="button"
+        variant="text"
+        color="error"
+        size="small"
+        onClick={handleRemove}
+      >
         Remove
-      </button>
+      </Button>
     </section>
   );
 }
